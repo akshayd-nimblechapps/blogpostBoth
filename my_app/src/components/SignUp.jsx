@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate,Link } from 'react-router-dom';
-import { signUp } from '../store/authSlice';
-
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { signUp } from "../store/authSlice";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    gender: '',
-    age: '',
+    email: "",
+    password: "",
+    name: "",
+    gender: "",
+    age: "",
   });
 
   const dispatch = useDispatch();
@@ -28,36 +27,71 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signUp(formData)).then((action) => {
-      if (action.meta.requestStatus === 'fulfilled') {
-        navigate('/signin');
+      if (action.meta.requestStatus === "fulfilled") {
+        navigate("/");
       }
     });
   };
 
   return (
     <>
-  
-    <form onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-      <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-      <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-      <select name="gender" value={formData.gender} onChange={handleChange} required>
-        <option value="" disabled>Select Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
-      <input type="number" name="age" placeholder="Age" value={formData.age} onChange={handleChange} required />
-      <button type="submit" disabled={authStatus === 'loading'}>Sign Up</button>
-   
-    </form>
- 
+      <form onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <select
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          required
+        >
+          <option value="" disabled>
+            Select Gender
+          </option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <input
+          type="number"
+          name="age"
+          placeholder="Age"
+          value={formData.age}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" disabled={authStatus === "loading"}>
+          Sign Up
+        </button>
+      </form>
 
-<p>You already have an account? <Link to="/">Sign In</Link></p>
+      <p>
+        You already have an account? <Link to="/">Sign In</Link>
+      </p>
       {authError && <p>Error: {authError}</p>}
     </>
-    
   );
 };
 
